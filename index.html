@@ -39,7 +39,7 @@
                    <option value="vi">Vietnamese</option>
                    <option value="auto">Auto Detect (Experimental)</option>
                 </select> 
-             <textarea name="Input" id="inputtext"  ></textarea>
+             <textarea name="Input" id="inputtext" oninput="debounce(main,3000)" ></textarea>
             </div>
             <div id="outputdiv">
                 <select name="" id="outputopt">
