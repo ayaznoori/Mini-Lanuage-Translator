@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+     body{
+        background-image: url("img/bg.webp");
+        background-repeat:repeat;
+    }
+  
+    #container{
+        text-align: center;
+        margin: auto;
+        margin-top: 50px;
+        width: 900px;
+        border: 1px solid black;
+ 
+        background-color: rgba(117, 116, 116, 0.678);
+         border-radius: 15px;
+         justify-content: center;
+        }
+    #iobox{
+        margin: auto;
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        width:90%;
+ 
+    }
+    #inputdiv{
+        padding: 10px;
+        width:50%;
+        text-align: start;
+    }
+    #outputdiv{
+        padding: 10px;
+        width:50%;
+ 
+        text-align: start;
+    }
+    #inputtext{
+ 
+        width: 95%;
+        height: 250px;
+    }
+    #outputtext{
+    
+        width: 95%;
+        height: 250px;
+    }
+ #copy{
+     background-color: rgb(0, 0, 0);
+     color: white;
+     width: max-content;
+     margin:auto;
+     text-align: center;
+     font-size: 20px;
+     padding: 5px;
+     border-bottom-left-radius: 5px;
+     border-bottom-right-radius: 5px;
+ }
+ #topbanner{
+     display: flex;
+    margin:auto;
+    margin: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.685);
+    font-size: 30px;
+    justify-content: center;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    color: rgb(255, 255, 255);
+ 
+    
+ }
+</style>
+<body>
+    <div id="container">
+       <div id="topbanner"><p>Mini Translator</p> &emsp; <img src="img/tran.png" width="80px" height="80px" alt="">&emsp;<p>मिनी अनुवादक</p>  </div> 
+        <div id="iobox">
+             <div id="inputdiv">
+                <select name="" id="inputopt">
+                   <option value="en" selected="">English</option>
+                   <option value="ar">Arabic</option>
+                   <option value="az">Azerbaijani</option>
+                   <option value="zh">Chinese</option>
+                   <option value="cs">Czech</option>
+                   <option value="nl">Dutch</option>
+                   <option value="fi">Finnish</option>
+                   <option value="fr">French</option>
+                   <option value="de">German</option>
+                   <option value="hi">Hindi</option>
+                   <option value="hu">Hungarian</option>
+                   <option value="id">Indonesian</option>
+                   <option value="ga">Irish</option>
+                   <option value="it">Italian</option>
+                   <option value="ja">Japanese</option>
+                   <option value="ko">Korean</option>
+                   <option value="pl">Polish</option>
+                   <option value="pt">Portuguese</option>
+                   <option value="ru">Russian</option>
+                   <option value="es">Spanish</option>
+                   <option value="sv">Swedish</option>
+                   <option value="tr">Turkish</option>
+                   <option value="uk">Ukranian</option>
+                   <option value="vi">Vietnamese</option>
+                   <option value="auto">Auto Detect (Experimental)</option>
+                </select> 
+             <textarea name="Input" id="inputtext"  ></textarea>
+            </div>
+            <div id="outputdiv">
+                <select name="" id="outputopt">
+                    <option value="en" selected="">English</option>
+                    <option value="ar">Arabic</option>
+                    <option value="az">Azerbaijani</option>
+                    <option value="zh">Chinese</option>
+                    <option value="cs">Czech</option>
+                    <option value="nl">Dutch</option>
+                    <option value="fi">Finnish</option>
+                    <option value="fr">French</option>
+                    <option value="de">German</option>
+                    <option value="hi">Hindi</option>
+                    <option value="hu">Hungarian</option>
+                    <option value="id">Indonesian</option>
+                    <option value="ga">Irish</option>
+                    <option value="it">Italian</option>
+                    <option value="ja">Japanese</option>
+                    <option value="ko">Korean</option>
+                    <option value="pl">Polish</option>
+                    <option value="pt">Portuguese</option>
+                    <option value="ru">Russian</option>
+                    <option value="es">Spanish</option>
+                    <option value="sv">Swedish</option>
+                    <option value="tr">Turkish</option>
+                    <option value="uk">Ukranian</option>
+                    <option value="vi">Vietnamese</option>
+                    <option value="auto">Auto Detect (Experimental)</option>
+                 </select> 
+             <textarea name="Output" id="outputtext"  ></textarea>
+             </div>
+       </div>
+       
+    <button onclick="trans()">Translate</button>
+    </div>
+    <div id="copy">Made By :- Mohammad Ayaz Noori (Masai Student)</div>
+</body>
+</html>
+<script>
+    async function trans(){
+        const textinput=document.getElementById("inputtext").value;
+        const inputopt=document.getElementById("inputopt").value;
+        const outputopt=document.getElementById("outputopt").value;
+        try{
+            const res = await fetch("https://libretranslate.de/translate", {
+	            method: "POST",
+	            body: JSON.stringify({
+		        q: textinput,
+		        source: inputopt,
+		        target: outputopt,
+		        format: "text"
+	            }),
+	            headers: { "Content-Type": "application/json" }
+    });
+
+       let result = await res.json();
+       console.log(result)
+       document.querySelector("#outputtext").value=result.translatedText;
+        }
+        catch(err){
+            console.log(err)
+        }
+          
+        
+    }
+</script>
